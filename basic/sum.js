@@ -1,6 +1,11 @@
 function sum(n) {
     //TODO:
     //result = 1 + 2 + 3 + ... + n
+    let result = 0;
+    for (let i = 1; i <= n; i++) {
+        result += i;
+    }
+
     return result;
 }
 
