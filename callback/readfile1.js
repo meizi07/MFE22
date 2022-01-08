@@ -6,4 +6,8 @@ readFile("test.txt" , "utf-8", (err, data) => {
         return;
     }
     console.log(data);
+
+    // insert to myasql
 })
+
+
