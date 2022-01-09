@@ -18,15 +18,15 @@
 
 let doWork = function (job, timer) {
     return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve(`完成工作 ${job}`); // 會把這一個 promise 物件的狀態變成 fulfilled
-
-            // 如果發生錯誤
-            // reject(err)
-            // 會把這一個 promise 物件的狀態變成 rejected
-        }, timer);
+      setTimeout(() => {
+        resolve(`完成工作 ${job}`); // 會把這一個 promise 物件的狀態變成 fulfilled
+  
+        // 如果發生錯誤
+        // reject(err)
+        // 會把這一個 promise 物件的狀態變成 rejected
+      }, timer);
     });
-};
+  };
 
 // 刷牙 --> 吃早餐 --> 寫功課
 let dt = new Date();
