@@ -40,6 +40,8 @@ async function main() {
     console.log(`${result3} at ${dt.toISOString()}`);
 }
 main();
+
+
 // IIFE 立即執行函式，只用一次就執行結果，不用命名
 // (async() => {
 //     //實作 await 的功能
