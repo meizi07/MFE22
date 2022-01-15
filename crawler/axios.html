@@ -46,12 +46,12 @@
           const amount = document.querySelector("#amount");
           data.details.forEach((detail) => {
             let row = `
-          <tr>
-            <td>${detail.productId}</td>
-            <td>${detail.count}</td>
-            <td>${detail.price}</td>
-          </tr>
-          `;
+                    <tr>
+                        <td>${detail.productId}</td>
+                        <td>${detail.count}</td>
+                        <td>${detail.price}</td>
+                    </tr>
+                    `;
             tbody.innerHTML += row;
           });
           orderNo.innerText = data.orderNo;

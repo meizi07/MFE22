@@ -1,5 +1,6 @@
 const axios = require('axios');
 const { readFile } = require('fs/promises');
+const moment = require('moment');
 
 
 (async () => {
@@ -7,8 +8,12 @@ const { readFile } = require('fs/promises');
         // TODO: 從stock.txt中讀出檔案代碼
         let stockNo = await readFile('stock.txt', 'utf-8');
         console.log(stockNo);
-        let queryDate = "20220110"; //TODO: 自動用今天的日期
-
+        // let queryDate = moment().format("YYYYMMDD") //用moment.js
+        let queryDate = new Date(); //TODO: 自動用今天的日期
+        const date = queryDate.getDate();
+        const month = queryDate.getMonth();
+        const year = queryDate.getFullYear();
+        const today = year+month+date;
         let response = await axios.get(
             "https://www.twse.com.tw/exchangeReport/STOCK_DAY", 
             {
@@ -16,7 +21,7 @@ const { readFile } = require('fs/promises');
                 // params: 放 query string 的參數
                 params: {
                     response: "json",
-                    date: queryDate,
+                    date: today,
                     stockNo,
                 },
             }
