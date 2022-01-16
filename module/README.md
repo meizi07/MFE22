@@ -11,7 +11,7 @@
 - NodeJS、瀏覽器不能使用
 - 用法 `require`
 
-```javascript=
+```javascript
 // exports = module.exports = {};
 
 // return module.exports;
@@ -21,7 +21,7 @@
 
 例如以下寫法，這樣最後回傳的 module.exports 還是空的...
 
-```javascript=
+```javascript
 // exports = module.exports = {};
 // exports 本身是一個物件
 
