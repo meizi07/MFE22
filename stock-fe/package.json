@@ -9,6 +9,7 @@
     "autoprefixer": "^10.4.2",
     "axios": "^0.25.0",
     "cors": "^2.8.5",
+    "dotenv": "^14.2.0",
     "postcss": "^8.4.5",
     "postcss-cli": "^9.1.0",
     "react": "^17.0.2",

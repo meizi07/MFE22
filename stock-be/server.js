@@ -3,9 +3,7 @@ const express = require("express");
 require("dotenv").config();
 // path 是 nodejs 內建的 lib
 const path = require("path");
-const connection = require("./utils/db");
 const cors = require("cors");
-const { count } = require("console");
 
 // 利用 express 這個 library 來建立一個 web app (express instance)
 let app = express();
@@ -82,52 +80,8 @@ app.get("/contact", (req, res, next) => {
   res.send("這是聯絡我們");
 });
 
-// RESTful API 的列表
-app.get("/api/stocks", async (req, res, next) => {
-  let [data, fields] = await connection.execute("SELECT * FROM stocks");
-  console.log(data);
-  // res.send ==> 純文字
-  // res.render ==> server-side render 會去找樣板
-  res.json(data);
-});
-
-app.get("/api/stock/:stockId", async (req, res, next) => {
-  // req.params.stockId
-  // req.query.page <- 第幾頁
-  // /api/stock/:stockId?page=
-
-  // 取得目前在第幾頁
-  // 如果沒有設定req.query.page，那就設成1
-  let page = req.query.page || 1;
-  console.log("aaaa", page);
-
-  // TODO: 取得目前總筆數
-  let [total] = await connection.execute(
-    "SELECT COUNT(*) AS total FROM stock_prices WHERE stock_id=?",
-    [req.params.stockId]
-  );
-  console.log("bbb", total); // [{total: 15}] 物件型別
-  total = total[0].total; // total = 15 轉換成數字型別
-
-  // TODO: 計算總共要有幾頁
-  const perPage = 3; // 一頁三筆
-  const lastPage = Math.ceil(total / perPage); // 計算總共有幾頁，ceil無條件進位
-
-  // TODO: 計算SQL要用的offset
-  // TODO: 取得資料
-  // SELECT * FROM stock_prices WHERE stock_id=? ORDER BY date LIMIT 3 OFFSET ?
-  let offset = (page - 1) * perPage;
-  let [data] = await connection.execute(
-    "SELECT * FROM stock_prices WHERE stock_id=? ORDER BY date LIMIT ? OFFSET ?",
-    [req.params.stockId, perPage, offset]
-  );
-
-  // TODO: 準備要 response
-  res.json({
-    pagination: { total, perPage, page, lastPage },
-    data,
-  });
-});
+let stockRouter = require("./routers/stock");
+app.use("/api/stock", stockRouter);
 
 // 在所有路由中間件的後
 // 既然前面都比對不到，那表示這裡是 404
