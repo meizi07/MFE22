@@ -1,5 +1,6 @@
 // 引入 express
 const express = require("express");
+// const bodyParser = require("body-parser");
 require("dotenv").config();
 // path 是 nodejs 內建的 lib
 const path = require("path");
@@ -9,6 +10,13 @@ const cors = require("cors");
 let app = express();
 
 app.use(cors());
+
+// express.urlencoded 要讓express 認得 body 裡的資料
+// extended: false -> querystring
+// extended: true -> qs
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 // express 是由 middleware 組成的
 // request -> middleware 1 -> middleware 2 -> ... -> response
 // 中間件順序很重要!! Express 會按照你程式碼的順序去決定 next 是誰
@@ -30,7 +38,7 @@ app.set("view engine", "pug");
 app.use(express.static(path.join(__dirname, "assets")));
 // 寫法2: 有網址的 prefix
 // localhost:3002/static/index.html --> 網址上就會有這個 url prefix
-app.use("/static", express.static(path.join(__dirname, "public")));
+app.use("/static", express.static(path.join(__dirname, "/public")));
 
 // 一般中間件(自己開發的)
 // app.use(function (request, response, next) {});
@@ -82,6 +90,9 @@ app.get("/contact", (req, res, next) => {
 
 let stockRouter = require("./routers/stock");
 app.use("/api/stock", stockRouter);
+
+let authRouter = require("./routers/auth");
+app.use("/api/auth", authRouter);
 
 // 在所有路由中間件的後
 // 既然前面都比對不到，那表示這裡是 404
